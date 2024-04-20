@@ -26,6 +26,16 @@ const SearchPage = () => {
 
   const { results, isLoading } = useSearchRestaurants(searchState, city);
 
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const setSortOption = (sortOption: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      sortOption,
+      page: 1,
+    }));
+  };
+  
   const setSelectedCuisines = (selectedCuisines: string[]) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -33,9 +43,6 @@ const SearchPage = () => {
       page: 1,
     }));
   };
-
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-
 
   const setPage = (page: number) => {
     setSearchState((prevState) => ({
@@ -87,10 +94,10 @@ const SearchPage = () => {
         />
         <div className="flex justify-between flex-col gap-3 lg:flex-row">
           <SearchResultInfo total={results.pagination.total} city={city} />
-          {/* <SortOptionDropdown
+          <SortOptionDropdown
             sortOption={searchState.sortOption}
             onChange={(value) => setSortOption(value)}
-          /> */}
+          />
         </div>
 
         {results.data.map((restaurant) => (
