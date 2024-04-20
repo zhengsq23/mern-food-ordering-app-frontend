@@ -6,6 +6,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardFooter } from "@/components/ui/card";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import CheckoutButton from "@/components/CheckoutButton";
 
 export type CartItem = {
   _id: string;
@@ -104,13 +105,13 @@ const DetailPage = () => {
               cartItems={cartItems}
               removeFromCart={removeFromCart}
             />
-            {/* <CardFooter>
+            <CardFooter>
               <CheckoutButton
                 disabled={cartItems.length === 0}
-                onCheckout={onCheckout}
-                isLoading={isCheckoutLoading}
+                // onCheckout={onCheckout}
+                // isLoading={isCheckoutLoading}
               />
-            </CardFooter> */}
+            </CardFooter>
           </Card>
         </div>
       </div>
