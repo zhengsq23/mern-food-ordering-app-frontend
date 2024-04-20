@@ -41,11 +41,10 @@ const formSchema = z.object({
   ),
   imageUrl: z.string().optional(),
   imageFile: z.instanceof(File, { message: "image is required" }).optional(),
-});
-//   .refine((data) => data.imageUrl || data.imageFile, {
-//     message: "Either image URL or image File must be provided",
-//     path: ["imageFile"],
-//   });
+}).refine((data) => data.imageUrl || data.imageFile, {
+    message: "Either image URL or image File must be provided",
+    path: ["imageFile"],
+  });
 
 type RestaurantFormData = z.infer<typeof formSchema>;
 
