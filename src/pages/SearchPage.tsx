@@ -26,6 +26,17 @@ const SearchPage = () => {
 
   const { results, isLoading } = useSearchRestaurants(searchState, city);
 
+  const setSelectedCuisines = (selectedCuisines: string[]) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      selectedCuisines,
+      page: 1,
+    }));
+  };
+
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+
   const setPage = (page: number) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -57,7 +68,7 @@ const SearchPage = () => {
   }
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      {/* <div id="cuisines-list">
+      <div id="cuisines-list">
         <CuisineFilter
           selectedCuisines={searchState.selectedCuisines}
           onChange={setSelectedCuisines}
@@ -66,7 +77,7 @@ const SearchPage = () => {
             setIsExpanded((prevIsExpanded) => !prevIsExpanded)
           }
         />
-      </div> */}
+      </div>
       <div id="main-content" className="flex flex-col gap-5">
         <SearchBar
           searchQuery={searchState.searchQuery}
