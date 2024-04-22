@@ -7,7 +7,7 @@ import UserProfileForm, {
   UserFormData,
 } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
-import React from "react";
+
 
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
