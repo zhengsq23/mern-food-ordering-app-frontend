@@ -7,6 +7,9 @@ import { Card, CardFooter } from "@/components/ui/card";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CheckoutButton from "@/components/CheckoutButton";
+import { useCreateCheckoutSession } from "@/api/OrderApi";
+import { MenuItem as MenuItemType } from "../types";
+import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 
 export type CartItem = {
   _id: string;
@@ -18,6 +21,8 @@ export type CartItem = {
 const DetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurant, isLoading } = useGetRestaurant(restaurantId);
+  const { createCheckoutSession, isLoading: isCheckoutLoading } =
+  useCreateCheckoutSession();
 
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
@@ -73,6 +78,7 @@ const DetailPage = () => {
       return updatedCartItems;
     });
   };
+
   const onCheckout = async (userFormData: UserFormData) => {
     if (!restaurant) {
       return;
@@ -94,9 +100,10 @@ const DetailPage = () => {
       },
     };
     console.log(checkoutData)
-    // const data = await createCheckoutSession(checkoutData);
-    // window.location.href = data.url;
+    const data = await createCheckoutSession(checkoutData);
+    window.location.href = data.url;
   };
+  
   if (isLoading || !restaurant) {
     return "Loading...";
   }
@@ -132,7 +139,7 @@ const DetailPage = () => {
               <CheckoutButton
                 disabled={cartItems.length === 0}
                 onCheckout={onCheckout}
-                // isLoading={isCheckoutLoading}
+                isLoading={isCheckoutLoading}
               />
             </CardFooter>
           </Card>

@@ -12,9 +12,9 @@ import React from "react";
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
   disabled: boolean;
-  // isLoading: boolean;
+  isLoading: boolean;
 };
-const CheckoutButton = ({ onCheckout, disabled }: Props) => {
+const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   const {
     isAuthenticated,
     isLoading: isAuthLoading,
@@ -41,7 +41,7 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
     );
   }
 
-  if (isAuthLoading || !currentUser) {
+  if (isAuthLoading || !currentUser || isLoading) {
     return <LoadingButton />;
   }
 
@@ -57,8 +57,8 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
           currentUser={currentUser}
           onSave={onCheckout}
           isLoading={isGetUserLoading}
-          // title="Confirm Deliery Details"
-          // buttonText="Continue to payment"
+          title="Confirm Deliery Details"
+          buttonText="Continue to payment"
         />
       </DialogContent>
     </Dialog>
