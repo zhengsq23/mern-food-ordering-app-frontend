@@ -11,16 +11,15 @@ import {
   SelectValue,
 } from "./ui/select";
 import { ORDER_STATUS } from "@/config/order-status-config";
-// import { useUpdateMyRestaurantOrder } from "@/api/MyRestaurantApi";
+import { useUpdateMyRestaurantOrder } from "@/api/MyRestaurantApi";
 import { useEffect, useState } from "react";
-import React from "react";
 
 type Props = {
   order: Order;
 };
 
 const OrderItemCard = ({ order }: Props) => {
-  // const { updateRestaurantStatus, isLoading } = useUpdateMyRestaurantOrder();
+  const { updateRestaurantStatus, isLoading } = useUpdateMyRestaurantOrder();
   const [status, setStatus] = useState<OrderStatus>(order.status);
 
   useEffect(() => {
@@ -28,10 +27,10 @@ const OrderItemCard = ({ order }: Props) => {
   }, [order.status]);
 
   const handleStatusChange = async (newStatus: OrderStatus) => {
-    // await updateRestaurantStatus({
-    //   orderId: order._id as string,
-    //   status: newStatus,
-    // });
+    await updateRestaurantStatus({
+      orderId: order._id as string,
+      status: newStatus,
+    });
     setStatus(newStatus);
   };
 
@@ -90,8 +89,8 @@ const OrderItemCard = ({ order }: Props) => {
           <Label htmlFor="status">What is the status of this order?</Label>
           <Select
             value={status}
-            // disabled={isLoading}
-            
+            disabled={isLoading}
+
             onValueChange={(value) => handleStatusChange(value as OrderStatus)}
           >
             <SelectTrigger id="status">
